@@ -39,7 +39,7 @@ export default function Home() {
             A calm writing group for steady sessions, generous feedback, and
             the momentum to keep turning up for the page.
           </p>
-          <Link href="/login" className={styles.button}>
+          <Link href="/auth/login" className={styles.button}>
             Get started
           </Link>
         </div>
@@ -101,7 +101,7 @@ export default function Home() {
           Join the group, settle in, and start building a writing habit with
           people who will notice when you keep going.
         </p>
-        <Link href="/login" className={styles.button}>
+        <Link href="/auth/login" className={styles.button}>
           Get started
         </Link>
       </section>

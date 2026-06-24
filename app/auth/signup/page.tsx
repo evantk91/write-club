@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { SubmitEvent, useState } from "react";
 import styles from "../auth.module.css";
 
 export default function SignupPage() {
@@ -11,7 +11,7 @@ export default function SignupPage() {
   const passwordsDoNotMatch =
     confirmPassword.length > 0 && password !== confirmPassword;
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
 
     if (passwordsDoNotMatch) {
