@@ -2,14 +2,29 @@
 
 import { useState } from "react";
 import styles from "../dashboard.module.css";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useAuth } from "@/context/AuthContext";
 
 export default function NewNote() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const { user } = useAuth();
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
-    console.log({ title, content })
+    
+    try {
+      const doc = await addDoc(collection(db, 'notes'), {
+        title,
+        content,
+        uid: user?.uid 
+      })
+      console.log('document created with doc id:', doc.id)
+    }
+    catch (error) {
+      console.log(error)
+    }
 
     // reset state
     setTitle("")
