@@ -4,6 +4,7 @@ import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import styles from "../dashboard.module.css";
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
+import { Trash2 } from "lucide-react";
 
 interface NoteData {
   title: string,
@@ -38,6 +39,11 @@ export default function NoteList() {
         <div key={note.id} className={styles.noteCard}>
           <h3 className={styles.noteCardTitle}>{note.title}</h3>
           <p className={styles.noteCardContent}>{note.content}</p>
+          <div className={styles.noteCardFooter}>
+            <button className={styles.deleteButton}>
+              <Trash2 size={15} />
+            </button>
+          </div>
         </div>
       ))}
     </div>
