@@ -1,6 +1,6 @@
 "use client";
 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import styles from "../dashboard.module.css";
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
@@ -18,25 +18,18 @@ export default function NoteList() {
   const [notes, setNotes] = useState<Note[]>([])
 
   useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const snapshot = await getDocs(collection(db, 'notes'))
+    const unsub = onSnapshot(collection(db, 'notes'), (snapshot) => {
+      const documents = snapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data() as NoteData
+        }
+      })
 
-        const documents = snapshot.docs.map((doc) => {
-          return {
-            id: doc.id,
-            ...doc.data() as NoteData
-          }
-        })
+      setNotes(documents)
+    })
 
-        setNotes(documents)
-      } 
-      catch (error) {
-        console.log(error)
-      }   
-    }
-
-    fetchNotes()
+    return unsub
   }, [])
 
   return (
